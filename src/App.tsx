@@ -1,56 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useContactsQuery } from './services/contactsApi'
 
-function App() {
+const App = () => {
+
+  const { data, isLoading, isError, isSuccess, isFetching } = useContactsQuery()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <h1>RTK Query</h1> 
+      {isLoading && (
+        <h3
+          style={{color: 'blue'}} 
+        >Loading ...</h3>
+      )}
+      {isError && (
+        <h3
+          style={{color: 'red'}} 
+        >Something went wrong</h3>
+      )}
+      {isFetching && (
+        <h3
+          style={{color: 'green'}} 
+        >Fetching data on progress</h3>
+      )}
+      {isSuccess && data?.map((contact) => (
+        <div
+          style={{marginBottom: "20px"}}
+          key={contact.id}
+        >
+          <p>{contact.name}</p>
+          <p>{contact.email}</p>
+          <hr />
+        </div>
+      ))}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
