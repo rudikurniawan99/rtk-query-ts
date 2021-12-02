@@ -1,4 +1,5 @@
 import React from 'react'
+import Contact from './pages/Contact'
 import { useContactsQuery } from './services/contactsApi'
 
 const App = () => {
@@ -29,7 +30,10 @@ const App = () => {
           key={contact.id}
         >
           <p>{contact.name}</p>
-          <p>{contact.email}</p>
+          <h6>Detail</h6>
+          <Contact
+            id={contact.id} 
+          />
           <hr />
         </div>
       ))}
